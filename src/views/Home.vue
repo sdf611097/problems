@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <b-button id='button-open' @click="open">open</b-button>
+    <b-modal
+      ref="modal-ref"
+      hide-footer
+    >
+      <b-button id='button-close' @click="close">close</b-button>
+    </b-modal>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
 
+<script>
 export default {
-  name: 'home',
-  components: {
-    HelloWorld,
+  methods: {
+    open() {
+      console.log('open');
+      this.$refs['modal-ref'].show();
+    },
+    close() {
+      console.log('ok');
+      this.$refs['modal-ref'].hide();
+    },
   },
 };
 </script>
