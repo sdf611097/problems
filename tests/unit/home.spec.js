@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, mount, createWrapper } from '@vue/test-utils';
 import BootstrapVue from 'bootstrap-vue';
 import Home from '@/views/Home.vue';
 
@@ -19,13 +19,12 @@ describe('Boostrap Modal', () => {
     await wrapper.vm.$nextTick();
     console.log(modal.exists());
     expect(modal.vm.isVisible).to.equal(true);
-    // find it from home
-    // const close = wrapper.find('#button-close');
-    // find it from modal
-    const close = modal.find('#button-close');
-    expect(close.exists()).to.equal(true);
-    close.trigger('click');
 
+    const closeElement = document.getElementById('button-close');
+    const closeWrapper = createWrapper(closeElement);
+    expect(closeWrapper.exists()).to.equal(true);
+    expect(closeWrapper.is('button')).to.equal(true);
+    closeWrapper.trigger('click');
     await wrapper.vm.$nextTick();
     expect(modal.vm.isVisible).to.equal(false);
     wrapper.destroy();
